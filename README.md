@@ -1,66 +1,130 @@
-<a href="http://themes.3rdwavemedia.com/website-templates/orbit-free-resume-cv-template-for-developers/" target="_blank"><img src="http://themes.3rdwavemedia.com/wp-content/uploads/2016/01/Responsive-HTML5-Resume-CV-Template-for-Developers.png" alt="Responsive Resume/CV Template for Developers" /></a>
+# Beautiful Hugo - A port of Beautiful Jekyll Theme
 
-##Theme Details & Demo
+![Beautiful Hugo Theme Screenshot](https://github.com/halogenica/beautifulhugo/blob/master/images/screenshot.png)
 
-**Demo:** http://themes.3rdwavemedia.com/website-templates/orbit-free-resume-cv-template-for-developers/
+## Installation
 
-Orbit is a free resume/CV template designed for developers. Looking to **impress your potential employer**? Get this template and you can **send an online resume/CV** instead of a word/pdf attachment. You can **easily make different versions of your online resume/CV** to tailor for different job positions too. 
+    $ mkdir themes
+    $ cd themes
+    $ git clone https://github.com/halogenica/beautifulhugo.git beautifulhugo
 
-The template comes with **6 colour schemes**. The source LESS files are included so it’s quick and easy to change the styling and colour scheme.
+See [the Hugo documentation](https://gohugo.io/themes/installing/) for more information.
 
-##Author & License
+## Extra Features
 
-This Bootstrap template is made by UX/UI designer [Xiaoying Riley](https://twitter.com/3rdwave_themes) for developers and is 100% FREE under the [Creative Commons Attribution 3.0 License (CC BY 3.0)](http://creativecommons.org/licenses/by/3.0/)
+### Responsive
 
-If you'd like to **use the template without the attribution**, you can check out **other license options** via the [theme website](http://themes.3rdwavemedia.com/website-templates/orbit-free-resume-cv-template-for-developers/)
+This theme is designed to look great on both large-screen and small-screen (mobile) devices.
 
-####Follow Xiaoying
+### Syntax highlighting
 
-[Twitter](https://twitter.com/3rdwave_themes)
+This theme has support for either Hugo's lightning fast Chroma, or both server side and client side highlighting. See [the Hugo docs for more](https://gohugo.io/content-management/syntax-highlighting/).
 
-[Facebook](https://www.facebook.com/3rdwavethemes/)
+#### Chroma - New server side syntax highlighting
 
-[Dribbble](https://dribbble.com/Xiaoying)
+To enable Chroma, add the following to your site parameters:
 
-[Linkedin](https://uk.linkedin.com/in/xiaoying)
+```
+pygmentsCodeFences = true
+pygmentsUseClasses = true
+```
+
+Then, you can generate a different style by running:
+
+```
+hugo gen chromastyles --style=trac > static/css/syntax.css
+```
+
+#### Pygments - Old server side syntax highlighting
+
+To use this feature install Pygments (`pip install Pygments`) and add the following to your site parameters:
+
+```
+pygmentsStyle = "trac"
+pygmentsUseClassic = true
+```
+
+Pygments is mostly compatable with the newer Chroma. It is slower but has some additional theme options. I recommend Chroma over Pygments.
+
+#### Highlight.js - Client side syntax highlighting
+```
+[Params]
+    useHLJS = true
+```
+
+Client side highlighting does not require pygments to be installed. This will use `highlight.min.css` instead of `syntax.css` for highlighting (effectively disabling Chroma). Highlight.js has a wider range of support for languages and themes, and an alternative highlighting engine.
+
+### Disqus support
+
+To use this feature, uncomment and fill out the `disqusShortname` parameter in `config.toml`.
+
+### Staticman support
+
+Add *staticman* configuration section in `config.toml` or `config.yaml`
+
+Sample `config.yaml` configuration
+
+```
+  staticman:
+    api: https://api.staticman.net/v2/entry/<USERNAME>/<REPOSITORY-BLOGNAME>/master/comments
+    pulls: https://github.com/<USERNAME>/<REPOSITORY-BLOGNAME>/pulls
+    recaptcha:
+      sitekey: "6LeGeTgUAAAAAAqVrfTwox1kJQFdWl-mLzKasV0v"
+      secret: "hsGjWtWHR4HK4pT7cUsWTArJdZDxxE2pkdg/ArwCguqYQrhuubjj3RS9C5qa8xu4cx/Y9EwHwAMEeXPCZbLR9eW1K9LshissvNcYFfC/b8KKb4deH4V1+oqJEk/JcoK6jp6Rr2nZV4rjDP9M7nunC3WR5UGwMIYb8kKhur9pAic="
+```
+
+You must also configure the `staticman.yml` in you blog website.
+
+```
+comments:
+  allowedFields: ["name", "email", "website", "comment"]
+  branch            : "master"
+  commitMessage     : "New comment in {options.slug}"
+  path: "data/comments/{options.slug}"
+  filename          : "comment-{@timestamp}"
+  format            : "yaml"
+  moderation        : true
+  requiredFields    : ['name', 'email', 'comment']
+  transforms:
+    email           : md5
+  generatedFields:
+    date:
+      type          : "date"
+      options:
+        format      : "iso8601"
+  reCaptcha:
+    enabled: true
+    siteKey: "6LeGeTgUAAAAAAqVrfTwox1kJQFdWl-mLzKasV0v"
+    secret: "hsGjWtWHR4HK4pT7cUsWTArJdZDxxE2pkdg/ArwCguqYQrhuubjj3RS9C5qa8xu4cx/Y9EwHwAMEeXPCZbLR9eW1K9LshissvNcYFfC/b8KKb4deH4V1+oqJEk/JcoK6jp6Rr2nZV4rjDP9M7nunC3WR5UGwMIYb8kKhur9pAic="
+```
 
 
-##Latest Version
-**v1.0** - 29 Jan 2016
 
-[Changelog](http://themes.3rdwavemedia.com/website-templates/orbit-free-resume-cv-template-for-developers/?target=changelog)
+### Google Analytics
 
-##Colour Schemes
+To add Google Analytics, simply sign up to [Google Analytics](https://www.google.com/analytics/) to obtain your Google Tracking ID, and add this tracking ID to the `googleAnalytics` parameter in `config.toml`.
 
-#### Colour 1 (styles.css)
-<img src="http://themes.3rdwavemedia.com/wp-content/uploads/2016/01/free-resume-cv-bootstrap-template-for-developer-color-1.jpg" width="300" alt="Orbit color 1" />
+### Commit SHA on the footer
 
-#### Colour 2 (styles-2.css)
-<img src="http://themes.3rdwavemedia.com/wp-content/uploads/2016/01/free-resume-cv-bootstrap-template-for-developer-color-2.jpg" width="300" alt="Orbit color 2" />
+If the source of your site is in a Git repo, the SHA corresponding to the commit the site is built from can be shown on the footer. To do so, two environment variables have to be set (`GIT_COMMIT_SHA` and `GIT_COMMIT_SHA_SHORT`) and parameter `commit` has to be defined in the config file:
 
-#### Colour 3 (styles-3.css)
-<img src="http://themes.3rdwavemedia.com/wp-content/uploads/2016/01/free-resume-cv-bootstrap-template-for-developer-color-3.jpg" width="300" alt="Orbit color 3" />
+```
+[Params]
+  commit = "https://github.com/<username>/<siterepo>/tree/"
+```
+  
+This can be achieved by running the next command prior to calling Hugo:
 
-#### Colour 4 (styles-4.css)
-<img src="http://themes.3rdwavemedia.com/wp-content/uploads/2016/01/free-resume-cv-bootstrap-template-for-developer-color-4.jpg" width="300" alt="Orbit color 4" />
+```
+  GIT_COMMIT_SHA=`git rev-parse --verify HEAD` GIT_COMMIT_SHA_SHORT=`git rev-parse --short HEAD`
+```
+  
+See at [xor-gate/xor-gate.org](https://github.com/xor-gate/xor-gate.org) an example of how to add it to a continuous integration system.
+  
+## About
 
-#### Colour 5 (styles-5.css)
-<img src="http://themes.3rdwavemedia.com/wp-content/uploads/2016/01/free-resume-cv-bootstrap-template-for-developer-color-5.jpg" width="300" alt="Orbit color 5" />
+This is a port of the Jekyll theme [Beautiful Jekyll](https://deanattali.com/beautiful-jekyll/) by [Dean Attali](https://deanattali.com/aboutme#contact). It supports most of the features of the original theme.
 
-#### Colour 6 (styles-6.css)
-<img src="http://themes.3rdwavemedia.com/wp-content/uploads/2016/01/free-resume-cv-bootstrap-template-for-developer-color-6.jpg" width="300" alt="Orbit color 6" />
+## License
 
-##Features
-
--  Fully Responsive
--  HTML5 + CSS3
--  Built on Bootstrap 3
--  6 Colour Schemes
--  600+ FontAwesome icons
--  **LESS** files included
--  Compatible with all modern browsers
-
-##Credits
-- [Bootstrap](http://getbootstrap.com/)
-- [FontAwesome](http://fortawesome.github.io/Font-Awesome/)
-- [jQuery](http://jquery.com/)
+MIT Licensed, see [LICENSE](https://github.com/halogenica/Hugo-BeautifulHugo/blob/master/LICENSE).
